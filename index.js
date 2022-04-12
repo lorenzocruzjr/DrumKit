@@ -1,5 +1,4 @@
 // DETECTING BUTTON PRESS
-
 var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
 for(var i = 0; i<numberOfDrumButtons; i++){
@@ -9,6 +8,8 @@ for(var i = 0; i<numberOfDrumButtons; i++){
     var buttonInnerHTML = this.innerHTML;
 
     makeSound(buttonInnerHTML);
+
+    buttonAnimation(buttonInnerHTML);
   
     console.log(this.innerHTML);
 
@@ -17,13 +18,25 @@ for(var i = 0; i<numberOfDrumButtons; i++){
 }
 
 // DETECTING KEYBOARD PRESS
-
 document.addEventListener("keypress", function(event) {
 
   makeSound(event.key);
 
+  buttonAnimation(event.key);
+
 });
 
+
+// CONSTRUCTOR FUNCTION
+// function Audio (fileLocation) {
+//   this.fileLocation = fileLocation;
+//   this.play = function() {
+//     // Tap into the audio hardware
+//     // Check the file at fileLocation exists
+//     // Check the file at fileLocatiom is a sound file
+//     // Play the at fileLocation
+//   }
+// }
 
 function makeSound(key){
 
@@ -63,8 +76,20 @@ function makeSound(key){
       snare.play();
       break;
 
-    default:
+    default: console.log(buttonInnerHTML);
 
   }
+
+}
+
+function buttonAnimation(currentKey){
+
+  var activeButton = document.querySelector("." + currentKey);
+  
+  activeButton.classList.add("pressed");
+
+  setTimeout(function(){
+    activeButton.classList.remove("pressed");
+  }, 100)
 
 }
